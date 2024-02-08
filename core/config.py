@@ -6,6 +6,7 @@ class Config:
         self._sonar_url = os.environ['SONAR_URL']
         self._sonar_user = os.environ['SONAR_USER']
         self._sonar_password = os.environ['SONAR_PASSWORD']
+        self._ssl_verify = os.environ['SSL_VERIFY']
 
     @property
     def sonar_url(self):
@@ -18,6 +19,10 @@ class Config:
     @property
     def sonar_password(self):
         return self._sonar_password
+
+    @property
+    def ssl_verify(self):
+        if self._ssl_verify == "True": return True; return False
 
     @property
     def supported_keys(self):

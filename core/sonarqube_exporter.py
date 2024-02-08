@@ -12,9 +12,10 @@ class SonarExporter:
         self.user = user
         self.password = password
         self.base_url = CONF.sonar_url
+        self.ssl_verify = CONF.ssl_verify
 
     def _request(self, endpoint):
-        req = requests.get("{}/{}".format(self.base_url, endpoint), auth=(self.user, self.password))
+        req = requests.get("{}/{}".format(self.base_url, endpoint), auth=(self.user, self.password), verify=False)
         if req.status_code != 200:
             return req.status_code
         else:
@@ -25,6 +26,7 @@ class SonarExporter:
 
     def get_all_metrics(self):
         response = self._request(endpoint='api/metrics/search')
+        print("response: '",response,"'\n")
         metrics_list = response['metrics']
         page_num = 1
         while len(metrics_list) < response["total"]:

@@ -42,7 +42,7 @@ class CustomSonarExporter:
 if __name__ == "__main__":
     custom_exporter = CustomSonarExporter()
     prom.REGISTRY.register(custom_exporter)
-    prom.start_http_server(9120)
+    prom.start_http_server(8080, '0.0.0.0')
 
     while True:
         time.sleep(2)
